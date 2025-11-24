@@ -2019,3 +2019,52 @@ h2 {
     font-size: 82px;
   }
 }
+.tokenomics {
+  padding: 60px 0;
+}
+
+/* Grid layout */
+.tokenomics__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* 2 columns on medium+ screens */
+@media (min-width: 768px) {
+  .tokenomics__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Card style */
+.tokenomics__item {
+  background: #ffffff;
+  padding: 24px 22px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Subtitle */
+.tokenomics__subtitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* Lines */
+.tokenomics__line {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.tokenomics__bullet {
+  margin-left: 10px;
+}
+
+.tokenomics__extra {
+  margin-top: 14px;
+}
