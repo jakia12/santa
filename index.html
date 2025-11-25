@@ -9,6 +9,104 @@
   </head>
 
   <body>
+    <!-- Audio Element -->
+    <audio id="backgroundAudio" loop>
+      <source src="images/jingle.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Sound Toggle Button -->
+    <button id="soundToggle" class="sound-toggle">
+      <img id="soundIcon" src="images/sound.png" alt="Sound" />
+    </button>
+
+    <style>
+      .sound-toggle {
+        position: fixed;
+        top: 68px;
+        left: 20px;
+        z-index: 1000;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+      }
+
+      .sound-toggle:hover {
+        transform: scale(1.1);
+      }
+
+      .sound-toggle:active {
+        transform: scale(0.95);
+      }
+
+      .sound-toggle img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      @media (max-width: 768px) {
+        .sound-toggle {
+          width: 40px;
+          height: 40px;
+          top: 35px;
+          left: 15px;
+        }
+      }
+    </style>
+
+    <script>
+      // Initialize audio functionality
+      const backgroundAudio = document.getElementById('backgroundAudio');
+      const soundToggle = document.getElementById('soundToggle');
+      const soundIcon = document.getElementById('soundIcon');
+      let isPlaying = false;
+
+      // Start playing audio when page loads
+      window.addEventListener('load', () => {
+        // Auto-play with user interaction fallback
+        const playAudio = () => {
+          backgroundAudio.play().catch(() => {
+            // If auto-play fails, user must interact first
+            console.log('Auto-play prevented - waiting for user interaction');
+          });
+          isPlaying = true;
+          soundIcon.src = 'images/sound.png';
+          window.removeEventListener('click', playAudio);
+        };
+
+        // Try to play immediately
+        backgroundAudio.play().then(() => {
+          isPlaying = true;
+          soundIcon.src = 'images/sound.png';
+        }).catch(() => {
+          // If auto-play fails, wait for user click
+          window.addEventListener('click', playAudio, { once: true });
+        });
+      });
+
+      // Toggle sound on button click
+      soundToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        if (isPlaying) {
+          backgroundAudio.pause();
+          soundIcon.src = 'images/mute.png';
+          isPlaying = false;
+        } else {
+          backgroundAudio.play();
+          soundIcon.src = 'images/sound.png';
+          isPlaying = true;
+        }
+      });
+    </script>
+
     <div class="wrapper">
       <img
         style="
